@@ -118,4 +118,4 @@ ghcr.io/home-assistant/home-assistant:stable
 #you Have to add integeration in homeassistant for NodeRed (http://IP:8123/config/integrations)
 #an then link it in NodeRed, after You install node-red-contrib-home-assistant-websocket
 sudo git clone https://github.com/zachowj/hass-node-red.git /var/docker/home-assistant/data/hass
-sudo cp -R /var/docker/home-assistant/data/hass /var/docker/home-assistant/config/custom_components/nodered
+sudo cp -R /var/docker/home-assistant/data/hass/custom_components /var/docker/home-assistant/config/custom_components/nodered
