@@ -1,8 +1,9 @@
 #!/bin/sh
 #configure Z-Wave JS Server
-#set Your own passwords
-#they are examples olny
-#to są hasła przykładowe - zmień je na swoje
+# These are only sample slogans,
+# change them to your own
+# to są hasła przykładowe
+# zmień je na swoje
 S2_ACCESS_CONTROL_KEY="7764841BC794A54442E324682A550CEF"
 S2_AUTHENTICATED_KEY="66EA86F088FFD6D7497E0B32BC0C8B99"
 S2_UNAUTHENTICATED_KEY="2FAB1A27E19AE9C7CC6D18ACEB90C357"
@@ -11,7 +12,8 @@ S0_LEGACY_KEY="17DFB0C1BED4CABFF54E4B5375E257B3"
 
 
 ################### change if You know, what to do!
-#zmień, jeżeli wiesz, co robisz
+# zmień, jeżeli wiesz, co robisz!
+
 #create dirs
 sudo mkdir -p /var/docker/home-assistant/data
 sudo mkdir -p /var/docker/home-assistant/config/custom_components/nodered
@@ -105,6 +107,13 @@ sudo docker run -d --name=nodered --restart=always \
 -v '/var/docker/node-red/data':'/data' \
 nodered/node-red:latest
 
+#creates plugin for NodeRed : node-red-contrib-home-assistant-websocket
+#you have to add integeration (in Home Assistant) for NodeRed (url: http://[IP]:8123/config/integrations)
+#and then link it in Node-Red, after You install node-red-contrib-home-assistant-websocket
+sudo git clone https://github.com/zachowj/hass-node-red.git /var/docker/home-assistant/data/hass
+sudo cp -R /var/docker/home-assistant/data/hass/custom_components /var/docker/home-assistant/config/custom_components/nodered
+
+
 #home assistant
 sudo docker run --restart always \
 -d --name homeassistant \
@@ -113,9 +122,3 @@ sudo docker run --restart always \
 -e TZ=Europe/Warsaw \
 --net=host \
 ghcr.io/home-assistant/home-assistant:stable
-
-#creates plugin for NodeRed : node-red-contrib-home-assistant-websocket
-#you Have to add integeration in homeassistant for NodeRed (http://IP:8123/config/integrations)
-#an then link it in NodeRed, after You install node-red-contrib-home-assistant-websocket
-sudo git clone https://github.com/zachowj/hass-node-red.git /var/docker/home-assistant/data/hass
-sudo cp -R /var/docker/home-assistant/data/hass/custom_components /var/docker/home-assistant/config/custom_components/nodered
