@@ -95,7 +95,7 @@ sudo echo "S0_LEGACY_KEY=$S0_LEGACY_KEY" >> /var/docker/zwave-js-server/.env
 #S0_LEGACY_KEY=$S0_LEGACY_KEY
 #EOF'
 
-sudo docker run -d --name=js -p 3000:3000 -v "/var/docker/zwave-js-server/cache:/cache" --env-file=/var/docker/zwave-js-server/.env --device "/dev/serial/by-id/usb-0658_0200-if00:/dev/zwave" kpine/zwave-js-server:latest
+sudo docker run -d --name=jsc --restart=always -p 3000:3000 -v "/var/docker/zwave-js-server/cache:/cache" --env-file=/var/docker/zwave-js-server/.env --device "/dev/serial/by-id/usb-0658_0200-if00:/dev/zwave" kpine/zwave-js-server:latest
 
 #install node-red
 sudo apt-get install g++ build-essential make -y
