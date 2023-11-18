@@ -8,8 +8,11 @@ S2_ACCESS_CONTROL_KEY="7764841BC794A54442E324682A550CEF"
 S2_AUTHENTICATED_KEY="66EA86F088FFD6D7497E0B32BC0C8B99"
 S2_UNAUTHENTICATED_KEY="2FAB1A27E19AE9C7CC6D18ACEB90C357"
 S0_LEGACY_KEY="17DFB0C1BED4CABFF54E4B5375E257B3"
+NETWORK="ha-on-wyse"
+IPS="192.17.0"
 
-
+#
+docker network create --subnet=$IPS.0/16 $NETWORK
 
 ################### change if You know, what to do!
 # zmień, jeżeli wiesz, co robisz!
@@ -63,6 +66,7 @@ sudo apt update
 sudo docker run -d \
 --name=deconz \
 --restart=always \
+--ip $IPS.5 \
 -v /etc/localtime:/etc/localtime:ro \
 -v '/var/docker/deconz/config':/root/.local/share/dresden-elektronik/deCONZ \
 --device=/dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2123062-if00
@@ -95,7 +99,7 @@ sudo echo "S0_LEGACY_KEY=$S0_LEGACY_KEY" >> /var/docker/zwave-js-server/.env
 #S0_LEGACY_KEY=$S0_LEGACY_KEY
 #EOF'
 
-sudo docker run -d --name=js -p 3000:3000 -v "/var/docker/zwave-js-server/cache:/cache" --env-file=/var/docker/zwave-js-server/.env --device "/dev/serial/by-id/usb-0658_0200-if00:/dev/zwave" kpine/zwave-js-server:latest
+sudo docker run -d --name=jsc --restart=always -p 3000:3000 -v "/var/docker/zwave-js-server/cache:/cache" --env-file=/var/docker/zwave-js-server/.env --device "/dev/serial/by-id/usb-0658_0200-if00:/dev/zwave" kpine/zwave-js-server:latest
 
 #install node-red
 sudo apt-get install g++ build-essential make -y
