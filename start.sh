@@ -50,12 +50,12 @@ sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin git -y -f
 
 #instal zig-bee conbee
-sudo wget -O - http://phoscon.de/apt/deconz.pub.key | \
-           sudo apt-key add -
-sudo sudo sh -c "echo 'deb [arch=amd64] http://phoscon.de/apt/deconz \
-            $(lsb_release -cs) main' > \
-            /etc/apt/sources.list.d/deconz.list"
-sudo apt update
+#sudo wget -O - http://phoscon.de/apt/deconz.pub.key | \
+#           sudo apt-key add -
+#sudo sudo sh -c "echo 'deb [arch=amd64] http://phoscon.de/apt/deconz \
+#            $(lsb_release -cs) main' > \
+#            /etc/apt/sources.list.d/deconz.list"
+#sudo apt update
 #apt update --allow-insecure-repositories
 #sudo apt install deconz -y -f
 #sudo systemctl enable deconz.service
@@ -66,11 +66,11 @@ sudo apt update
 sudo docker run -d \
 --name=deconz \
 --restart=always \
---ip $IPS.5 \
+--ip $IPS.3 \
+--net $NETWORK \
 -v /etc/localtime:/etc/localtime:ro \
--v '/var/docker/deconz/config':/root/.local/share/dresden-elektronik/deCONZ \
---device=/dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2123062-if00
-:/dev/ttyACM99 \
+-v /var/docker/deconz/config:/root/.local/share/dresden-elektronik/deCONZ \
+--device=/dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2123062-if00:/dev/ttyACM99 \
 -e DECONZ_WEB_PORT=80 \
 -e DECONZ_WS_PORT=443 \
 -e DECONZ_VNC_PORT=5900 \
@@ -125,4 +125,4 @@ sudo docker run --restart always \
 -v /var/docker/home-assistant/data:/data \
 -e TZ=Europe/Warsaw \
 --net=host \
-ghcr.io/home-assistant/home-assistant:stable
+ghcr.io/home-assistant/home-assistant:latest
