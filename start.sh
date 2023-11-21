@@ -8,8 +8,8 @@ S2_ACCESS_CONTROL_KEY="7764841BC794A54442E324682A550CEF"
 S2_AUTHENTICATED_KEY="66EA86F088FFD6D7497E0B32BC0C8B99"
 S2_UNAUTHENTICATED_KEY="2FAB1A27E19AE9C7CC6D18ACEB90C357"
 S0_LEGACY_KEY="17DFB0C1BED4CABFF54E4B5375E257B3"
-NETWORK="ha-on-wyse"
-IPS="192.17.0"
+NETWORK="ha-on-wyse"   #to jest nazwa mojej sieci - this is my network name
+IPS="192.17.0"  #to jest prefix sieci, this is my networt prefix
 
 #
 docker network create --subnet=$IPS.0/16 $NETWORK
@@ -49,20 +49,10 @@ sudo echo \
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin git -y -f
 
-#instal zig-bee conbee
-#sudo wget -O - http://phoscon.de/apt/deconz.pub.key | \
-#           sudo apt-key add -
-#sudo sudo sh -c "echo 'deb [arch=amd64] http://phoscon.de/apt/deconz \
-#            $(lsb_release -cs) main' > \
-#            /etc/apt/sources.list.d/deconz.list"
-#sudo apt update
-#apt update --allow-insecure-repositories
-#sudo apt install deconz -y -f
-#sudo systemctl enable deconz.service
-#sudo systemctl start deconz.serivce
 
 
 # go to /dev/serial/
+#IP of my service: PREFIX.x -> 192.17.0.3
 sudo docker run -d \
 --name=deconz \
 --restart=always \
@@ -126,3 +116,7 @@ sudo docker run --restart always \
 -e TZ=Europe/Warsaw \
 --net=host \
 ghcr.io/home-assistant/home-assistant:latest
+
+#zigbee2HTTP
+sudo git clone https://github.com/zigbee2mqtt/hassio-zigbee2mqtt /var/docker/home-assistant/data/zigbee2mqtt
+sudo cp -R /var/docker/home-assistant/data/zigbee2mqtt/zigbee2mqtt/ /var/docker/home-assistant/config/custom_components/zigbee2mqtt
