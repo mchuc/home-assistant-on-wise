@@ -1,0 +1,57 @@
+[pl]
+źródło: https://www.youtube.com/watch?v=JM9LnwtZRoA&t=520s
+
+żeby sobie ominąć cały filmik: (zakładam, że dongle jest na COM6, w razie W zmień port)
+wciskasz przycisk logo windows, wpisujesz CMD i URUCHOM JAKO administrator ; zakładam, że masz Pythona, ja mam 3.9  i 3.12 i na obu działa
+
+mkdir c:\flash
+cd c:\flash
+python -m pip install --upgrade pip
+pip install wheel pyserial intelhex python-magic
+pip install zigpy-znp
+python -m zigpy_znp.tools.nvram_read COM6 -o backup.json
+(utworzyliśmy kopię bezpieczeństwa doongla)
+
+do c:\flash pobieramy sobie to (już pokopiowałem, co trzeba do katalogu)
+
+https://drive.google.com/file/d/15BdUcOulCstMw7YtfX-TW_nmmc_c8dxq/view?usp=drive_link
+
+ (c.hex to jest ten soft od Koenkk, ale po prostu nie chce mi się tyle klepać nazwy tego hex'a)
+
+i wydajemy komendę:
+
+python cc2538-bsl.py -p COM6 -e -v -w --bootloader-sonoff-usb c.hex
+
+
+a, ja mam hA w dockerze, więc daję link do filmu, jak zigbee2mqtt do dockera wrzucić
+https://sequr.be/blog/2022/10/home-assistant-container-part-10-zigbee2mqtt/
+
+
+
+[EN]:
+source: https://www.youtube.com/watch?v=JM9LnwtZRoA&t=520s
+
+to skip the whole video for yourself: (I assume the dongle is on COM6, if needed change the port number)
+you press windows logo button, type CMD and START AS admin ; I assume you have Python, I have 3.9 and 3.12 and on both it works
+
+mkdir c:\flash
+cd c:\flash
+python -m pip install --upgrade pip
+pip install wheel pyserial intelhex python-magic
+pip install zigpy-znp
+python -m zigpy_znp.tools.nvram_read COM6 -o backup.json
+(we created a backup copy of the doongel)
+
+to c:\flash download this (I've already copied what I need to the directory)
+
+https://drive.google.com/file/d/15BdUcOulCstMw7YtfX-TW_nmmc_c8dxq/view?usp=drive_link
+
+ (c.hex is the soft from Koenkk, but I just don't want to slap the name of this hex so much)
+
+and issue the command:
+
+python cc2538-bsl.py -p COM6 -e -v -w --bootloader-sonoff-usb c.hex
+
+
+a, I have hA in docker, so I give a link to a video on how to zigbee2mqtt into docker
+https://sequr.be/blog/2022/10/home-assistant-container-part-10-zigbee2mqtt/

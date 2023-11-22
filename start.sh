@@ -117,6 +117,4 @@ sudo docker run --restart always \
 --net=host \
 ghcr.io/home-assistant/home-assistant:latest
 
-#zigbee2HTTP
-sudo git clone https://github.com/zigbee2mqtt/hassio-zigbee2mqtt /var/docker/home-assistant/data/zigbee2mqtt
-sudo cp -R /var/docker/home-assistant/data/zigbee2mqtt/zigbee2mqtt/ /var/docker/home-assistant/config/custom_components/zigbee2mqtt
+#zigbee2HTTP -> run z2m_instead_deconz.py
